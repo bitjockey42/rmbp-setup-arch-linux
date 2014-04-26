@@ -139,6 +139,24 @@ Setup the encrypted partition as well:
     echo 'home /dev/sda7' >> /mnt/etc/crypttab
 
 
+Modifying the fstab for optimized I/O on the SSD
+================================================
+
+Use a text editor like `nano` to modify the fstab:
+
+    nano /mnt/fstab
+
+The settings will need to look something like this:
+
+```
+/dev/sda5    /boot  ext2  defaults,relatime,stripe=4    0 2
+/dev/sda6    /      ext4  defaults,noatime,discard,data=writeback    0 1
+/dev/mapper/home    /home ext4  defaults,noatime,discard,data=ordered    0 2
+```
+
+NOTE: If you did not encrypted `/home`, replace `/dev/mapper/home` to `/dev/sda7`.
+
+
 
 
 
