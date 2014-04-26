@@ -156,6 +156,44 @@ The settings will need to look something like this:
 
 NOTE: If you did not encrypted `/home`, replace `/dev/mapper/home` to `/dev/sda7`.
 
+Basic configuration (before first boot)
+==================================================
+
+Run `arch-chroot` to do stuff on the newly installed base system:
+
+    arch-chroot /mnt /bin/bash
+
+Once you are logged into the new system as the root user, set the hostname:
+
+    echo cleverhostnamehere > /etc/hostname
+
+(This is where I often get stuck, since I can never seem to think of a creative hostname).
+
+Then set the local time zone (which for me was "Chicago"):
+
+    ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime
+    hwclock --systohc --utc
+
+Create the first user and set the password:
+
+    useradd -m -g users -G wheel -s /bin/bash hckr
+    passwd hckr
+
+Setup the locale by uncommenting the lines corresponding to your locale(s) in `/etc/locale.gen`. I uncommented `en_US.UTF-8 UTF-8`. Then generate the locale:
+
+    locale-gen
+    echo LANG=en_US.UTF-8 > /etc/locale.conf
+    export LANG=en_US.UTF-8
+
+Modify `mkinitcpio.conf` to change the order of the `HOOK` section. Put `keyboard` after `autodetect`. Now run
+
+    mkinitcpio -p linux
+
+
+
+
+
+
 
 
 
