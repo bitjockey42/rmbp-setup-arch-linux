@@ -1,4 +1,4 @@
-0. Preparation
+00. Preparation
 ---------------
 
 NOTE: This assumes a fresh, clean installation of OS X 10.9 on a mid 2012, Retina Macbook Pro (15 inch).
