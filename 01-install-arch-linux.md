@@ -188,14 +188,3 @@ Setup the locale by uncommenting the lines corresponding to your locale(s) in `/
 Modify `mkinitcpio.conf` to change the order of the `HOOK` section. Put `keyboard` after `autodetect`. Now run
 
     mkinitcpio -p linux
-
-
-
-
-
-
-
-
-
-
-
