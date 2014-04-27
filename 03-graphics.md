@@ -47,5 +47,31 @@ You should not need to specify any special configuration in `/etc/X11/xorg.conf`
 If you encounter a black screen on boot, then the graphics card will need to be switched to the integrated card in OS X using `gfxCardStatus` as this means the linux system is still trying to get ahold of the discrete GPU.
 
 
+If you want to run the discrete graphics card
+==============================================
 
+I generally don't have a need for the discrete card as I don't use an external monitor.
 
+However, I needed something like this in my `/etc/X11/xorg.conf` in order to get the Nvidia card running with the nouveau drivers:
+
+```
+Section "Device"
+    Identifier     "Device0"
+    Driver         "nouveau"
+    VendorName     "NVIDIA Corporation"
+EndSection
+```
+
+For KMS, the `MODULES` array would need to be modified like so in the `/etc/mkinitcpio.conf`:
+
+    MODULES="nouveau"
+
+`mkinitcpio` would need to be run:
+
+    mkinitcpio -p linux
+
+Then, to turn on the discrete GPU with vgaswitcheroo:
+
+    echo ON > /sys/kernel/debug/vgaswitcheroo/switch
+
+Then, I'd have to reboot into OS X and set the graphics card to the discrete GPU with `gfxCardStatus`.
